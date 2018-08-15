@@ -1,0 +1,46 @@
+What is an RLE mask?
+1) Stores binary masks.
+  a) What is a binary mask?
+    1) A binary mask is data that is used for bitwise operations. So in this case a binary mask would be a 1 to 1 pixel covering so that bitwise operations can be calculated.
+2) Instead of storing data as [0 0 1 1 1 0 1] we can simply store data as [2 3 1 1].
+3) To decode an RLE mask, we set every calculate every odd RLE entry as the number of zeros.
+  a) E.G:
+       RLE         Binary
+    1)[4,1,1,4]   [0 0 0 0 1 0 1 1 1 1]
+
+What does the predictor need to output?
+1) The predictor needs to eventually output a correct RLE mask.
+  a) Perform a bitwise prediction on each pixel.
+  b) Run the array of bitwise predictions through an rle converter.
+
+How can I do pixelwise prediction?
+1) I dont know.
+
+Lets try doing basic classification.
+1) Go through the train.csv
+  a) For each FileName as defined by "filename,"
+    - Create a string with the name of the file
+    - Take the sum of the numbers after the fileName, concatenate it to the string.
+
+BLOG
+
+The Kaggle challenge asks users to identify subsurface salt deposits. Oil companies currently employ trained technicians to identify potential locations; then based on these experts the oil campny must decide whether or not to drill in a specific location. Recently I attended one of the local data meetups and another of the attendees brought up a similar topic. As a technician himself, he was wondering what he could do with machine learning to automate some of his manually performed analysis.
+
+Having worked on a single image analysis project before I asked him about his problem domain and what kind of images he was working with. His system would ingest data from thousands of sensors and then create an image for his analysis. I suggested it might be better to simply operate on the raw data instead of trying to run image classification. This would eliminate some of the overhead of having RGB images without any loss of data. After the meeting I continued to think on the problem and figured instead of creating and training a deep learning model, that maybe an SVM of sorts could get him pretty good binary classification.
+
+
+First up: Histogram of Gradients.
+
+Using Jupyter Lab I will read in the dataset from Kaggle, and store the raw images, masks, and the HOG images into their own arrays. Then ill make a plot like figure 1 to see if hogs indicates anything about the existence of subsurface salt. 
+
+Figure 1
+A side by side comparison of the raw image, the HOG image, and the mask.
+
+My hope was that by using HOGs I could eliminate any false postives and then from there trim down the dataset, maybe in combination with another technique I could do that. Reason being, the challenge penalizes heavily for any false positives. This is probably due to the costs associated with drilling, if you drill a false positive its a multi million dollar loss.
+
+######
+The results were weak, I'm going to switch it up and checkout some Machine Learning models .
+
+
+        
+
